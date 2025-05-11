@@ -8,7 +8,7 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"${workspaceFolder}\\ooplab5t\\*.cpp",
+				"${workspaceFolder}\\test\\*.cpp",
 				"-o",
 				"${workspaceFolder}\\lab5oop.exe"
 			],
