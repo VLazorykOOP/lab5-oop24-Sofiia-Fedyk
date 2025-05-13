@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef APARTMENT_CLASSES_H
 #define APARTMENT_CLASSES_H
 
@@ -6,113 +8,116 @@
 #include <fstream>
 #include <random>
 
-// Клас "Кімната"
-class Room {
+// Class "Room"
+class Room
+{
 private:
-    double area; // площа кімнати в м²
+    double area; // room area in m²
 
 public:
-    // Конструктори
-    Room(); // конструктор за замовчуванням
-    Room(double roomArea); // конструктор з параметром
-    Room(const Room& other); // конструктор копіювання
-    
-    // Оператор присвоєння
-    Room& operator=(const Room& other);
-    
-    // Деструктор
+    // Constructors
+    Room();                  // default constructor
+    Room(double roomArea);   // constructor with parameter
+    Room(const Room &other); // copy constructor
+
+    // Assignment operator
+    Room &operator=(const Room &other);
+
+    // Destructor
     virtual ~Room();
-    
-    // Методи доступу
+
+    // Access methods
     double getArea() const;
     void setArea(double roomArea);
-    
-    // Інші методи
+
+    // Other methods
     virtual void printInfo() const;
-    static double calculateMinimumStandardArea(); // статичний метод, що повертає мінімальну стандартну площу
+    static double calculateMinimumStandardArea(); // static method that returns minimum standard area
 };
 
-// Клас "Однокімнатна квартира"
-class OneRoomApartment {
+// Class "One-room apartment"
+class OneRoomApartment
+{
 private:
-    Room room; // кімната
-    double kitchenArea; // площа кухні в м²
-    int floor; // поверх
+    Room room;          // room
+    double kitchenArea; // kitchen area in m²
+    int floor;          // floor
 
 public:
-    // Конструктори
-    OneRoomApartment(); // конструктор за замовчуванням
-    OneRoomApartment(double roomArea, double kitchenArea, int floor); // конструктор з параметрами
-    OneRoomApartment(const Room& room, double kitchenArea, int floor); // конструктор з об'єктом Room
-    OneRoomApartment(const OneRoomApartment& other); // конструктор копіювання
-    
-    // Оператор присвоєння
-    OneRoomApartment& operator=(const OneRoomApartment& other);
-    
-    // Деструктор
+    // Constructors
+    OneRoomApartment();                                                // default constructor
+    OneRoomApartment(double roomArea, double kitchenArea, int floor);  // constructor with parameters
+    OneRoomApartment(const Room &room, double kitchenArea, int floor); // constructor with Room object
+    OneRoomApartment(const OneRoomApartment &other);                   // copy constructor
+
+    // Assignment operator
+    OneRoomApartment &operator=(const OneRoomApartment &other);
+
+    // Destructor
     virtual ~OneRoomApartment();
-    
-    // Методи доступу
+
+    // Access methods
     Room getRoom() const;
-    void setRoom(const Room& room);
-    
+    void setRoom(const Room &room);
+
     double getKitchenArea() const;
     void setKitchenArea(double kitchenArea);
-    
+
     int getFloor() const;
     void setFloor(int floor);
-    
-    // Інші методи
-    double getTotalArea() const; // отримати загальну площу квартири
+
+    // Other methods
+    double getTotalArea() const; // get total apartment area
     virtual void printInfo() const;
-    static double calculateMinimumKitchenArea(); // статичний метод
+    static double calculateMinimumKitchenArea(); // static method
 };
 
-// Клас "Однокімнатна квартира у місті" (похідний від OneRoomApartment)
-class CityOneRoomApartment : public OneRoomApartment {
+// Class "City one-room apartment" (derived from OneRoomApartment)
+class CityOneRoomApartment : public OneRoomApartment
+{
 private:
-    std::string cityName; // назва міста
+    std::string cityName; // city name
 
 public:
-    // Конструктори
-    CityOneRoomApartment(); // конструктор за замовчуванням
-    CityOneRoomApartment(double roomArea, double kitchenArea, int floor, const std::string& city);
-    CityOneRoomApartment(const Room& room, double kitchenArea, int floor, const std::string& city);
-    CityOneRoomApartment(const OneRoomApartment& apartment, const std::string& city);
-    CityOneRoomApartment(const CityOneRoomApartment& other); // конструктор копіювання
-    
-    // Оператор присвоєння
-    CityOneRoomApartment& operator=(const CityOneRoomApartment& other);
-    
-    // Деструктор
+    // Constructors
+    CityOneRoomApartment(); // default constructor
+    CityOneRoomApartment(double roomArea, double kitchenArea, int floor, const std::string &city);
+    CityOneRoomApartment(const Room &room, double kitchenArea, int floor, const std::string &city);
+    CityOneRoomApartment(const OneRoomApartment &apartment, const std::string &city);
+    CityOneRoomApartment(const CityOneRoomApartment &other); // copy constructor
+
+    // Assignment operator
+    CityOneRoomApartment &operator=(const CityOneRoomApartment &other);
+
+    // Destructor
     virtual ~CityOneRoomApartment();
-    
-    // Методи доступу
+
+    // Access methods
     std::string getCityName() const;
-    void setCityName(const std::string& city);
-    
-    // Перевизначений метод виведення інформації
+    void setCityName(const std::string &city);
+
+    // Overridden information output method
     virtual void printInfo() const override;
-    
-    // Статичний метод
+
+    // Static method
     static std::string getPopularCity();
 };
 
-// Функції для введення даних
-void inputFromKeyboard(Room& room);
-void inputFromKeyboard(OneRoomApartment& apartment);
-void inputFromKeyboard(CityOneRoomApartment& cityApartment);
+// Functions for data input
+void inputFromKeyboard(Room &room);
+void inputFromKeyboard(OneRoomApartment &apartment);
+void inputFromKeyboard(CityOneRoomApartment &cityApartment);
 
-void inputFromFile(Room& room, const std::string& filename);
-void inputFromFile(OneRoomApartment& apartment, const std::string& filename);
-void inputFromFile(CityOneRoomApartment& cityApartment, const std::string& filename);
+void inputFromFile(Room &room, const std::string &filename);
+void inputFromFile(OneRoomApartment &apartment, const std::string &filename);
+void inputFromFile(CityOneRoomApartment &cityApartment, const std::string &filename);
 
-void generateRandom(Room& room, double minArea = 5.0, double maxArea = 30.0);
-void generateRandom(OneRoomApartment& apartment, double minRoomArea = 5.0, double maxRoomArea = 30.0, 
-                   double minKitchenArea = 4.0, double maxKitchenArea = 15.0, 
-                   int minFloor = 1, int maxFloor = 20);
-void generateRandom(CityOneRoomApartment& cityApartment, double minRoomArea = 5.0, double maxRoomArea = 30.0, 
-                   double minKitchenArea = 4.0, double maxKitchenArea = 15.0, 
-                   int minFloor = 1, int maxFloor = 20);
+void generateRandom(Room &room, double minArea = 5.0, double maxArea = 30.0);
+void generateRandom(OneRoomApartment &apartment, double minRoomArea = 5.0, double maxRoomArea = 30.0,
+                    double minKitchenArea = 4.0, double maxKitchenArea = 15.0,
+                    int minFloor = 1, int maxFloor = 20);
+void generateRandom(CityOneRoomApartment &cityApartment, double minRoomArea = 5.0, double maxRoomArea = 30.0,
+                    double minKitchenArea = 4.0, double maxKitchenArea = 15.0,
+                    int minFloor = 1, int maxFloor = 20);
 
 #endif // APARTMENT_CLASSES_H

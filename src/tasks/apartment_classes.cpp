@@ -5,17 +5,17 @@
 #include <random>
 #include <vector>
 
-// Реалізація класу Room
+// Room class implementation
 Room::Room() : area(0.0) {
-    std::cout << "Створено кімнату за замовчуванням" << std::endl;
+    std::cout << "Default room created" << std::endl;
 }
 
 Room::Room(double roomArea) : area(roomArea > 0 ? roomArea : 0.0) {
-    std::cout << "Створено кімнату площею " << area << " м²" << std::endl;
+    std::cout << "Room with area " << area << " m² created" << std::endl;
 }
 
 Room::Room(const Room& other) : area(other.area) {
-    std::cout << "Створено копію кімнати площею " << area << " м²" << std::endl;
+    std::cout << "Room copy with area " << area << " m² created" << std::endl;
 }
 
 Room& Room::operator=(const Room& other) {
@@ -26,7 +26,7 @@ Room& Room::operator=(const Room& other) {
 }
 
 Room::~Room() {
-    std::cout << "Видалено кімнату площею " << area << " м²" << std::endl;
+    std::cout << "Room with area " << area << " m² deleted" << std::endl;
 }
 
 double Room::getArea() const {
@@ -40,33 +40,33 @@ void Room::setArea(double roomArea) {
 }
 
 void Room::printInfo() const {
-    std::cout << "Кімната: площа = " << area << " м²" << std::endl;
+    std::cout << "Room: area = " << area << " m²" << std::endl;
 }
 
 double Room::calculateMinimumStandardArea() {
-    // Стандартна мінімальна площа кімнати (умовно)
-    return 9.0; // м²
+    // Standard minimum room area (conventionally)
+    return 9.0; // m²
 }
 
-// Реалізація класу OneRoomApartment
+// OneRoomApartment class implementation
 OneRoomApartment::OneRoomApartment() : room(), kitchenArea(0.0), floor(1) {
-    std::cout << "Створено однокімнатну квартиру за замовчуванням" << std::endl;
+    std::cout << "Default one-room apartment created" << std::endl;
 }
 
 OneRoomApartment::OneRoomApartment(double roomArea, double kitArea, int flr) 
     : room(roomArea), kitchenArea(kitArea > 0 ? kitArea : 0.0), floor(flr > 0 ? flr : 1) {
-    std::cout << "Створено однокімнатну квартиру (кімната: " << roomArea 
-              << " м², кухня: " << kitchenArea << " м², поверх: " << floor << ")" << std::endl;
+    std::cout << "One-room apartment created (room: " << roomArea 
+              << " m², kitchen: " << kitchenArea << " m², floor: " << floor << ")" << std::endl;
 }
 
 OneRoomApartment::OneRoomApartment(const Room& rm, double kitArea, int flr) 
     : room(rm), kitchenArea(kitArea > 0 ? kitArea : 0.0), floor(flr > 0 ? flr : 1) {
-    std::cout << "Створено однокімнатну квартиру з існуючою кімнатою" << std::endl;
+    std::cout << "One-room apartment created with existing room" << std::endl;
 }
 
 OneRoomApartment::OneRoomApartment(const OneRoomApartment& other) 
     : room(other.room), kitchenArea(other.kitchenArea), floor(other.floor) {
-    std::cout << "Створено копію однокімнатної квартири" << std::endl;
+    std::cout << "One-room apartment copy created" << std::endl;
 }
 
 OneRoomApartment& OneRoomApartment::operator=(const OneRoomApartment& other) {
@@ -79,7 +79,7 @@ OneRoomApartment& OneRoomApartment::operator=(const OneRoomApartment& other) {
 }
 
 OneRoomApartment::~OneRoomApartment() {
-    std::cout << "Видалено однокімнатну квартиру на поверсі " << floor << std::endl;
+    std::cout << "One-room apartment on floor " << floor << " deleted" << std::endl;
 }
 
 Room OneRoomApartment::getRoom() const {
@@ -115,41 +115,41 @@ double OneRoomApartment::getTotalArea() const {
 }
 
 void OneRoomApartment::printInfo() const {
-    std::cout << "Однокімнатна квартира:" << std::endl;
+    std::cout << "One-room apartment:" << std::endl;
     room.printInfo();
-    std::cout << "Кухня: площа = " << kitchenArea << " м²" << std::endl;
-    std::cout << "Поверх: " << floor << std::endl;
-    std::cout << "Загальна площа: " << getTotalArea() << " м²" << std::endl;
+    std::cout << "Kitchen: area = " << kitchenArea << " m²" << std::endl;
+    std::cout << "Floor: " << floor << std::endl;
+    std::cout << "Total area: " << getTotalArea() << " m²" << std::endl;
 }
 
 double OneRoomApartment::calculateMinimumKitchenArea() {
-    // Стандартна мінімальна площа кухні (умовно)
-    return 6.0; // м²
+    // Standard minimum kitchen area (conventionally)
+    return 6.0; // m²
 }
 
-// Реалізація класу CityOneRoomApartment
-CityOneRoomApartment::CityOneRoomApartment() : OneRoomApartment(), cityName("Невідоме місто") {
-    std::cout << "Створено однокімнатну квартиру в місті за замовчуванням" << std::endl;
+// CityOneRoomApartment class implementation
+CityOneRoomApartment::CityOneRoomApartment() : OneRoomApartment(), cityName("Unknown city") {
+    std::cout << "Default city one-room apartment created" << std::endl;
 }
 
 CityOneRoomApartment::CityOneRoomApartment(double roomArea, double kitchenArea, int floor, const std::string& city)
     : OneRoomApartment(roomArea, kitchenArea, floor), cityName(city) {
-    std::cout << "Створено однокімнатну квартиру в місті " << cityName << std::endl;
+    std::cout << "One-room apartment created in " << cityName << std::endl;
 }
 
 CityOneRoomApartment::CityOneRoomApartment(const Room& room, double kitchenArea, int floor, const std::string& city)
     : OneRoomApartment(room, kitchenArea, floor), cityName(city) {
-    std::cout << "Створено однокімнатну квартиру в місті " << cityName << " з існуючою кімнатою" << std::endl;
+    std::cout << "One-room apartment created in " << cityName << " with existing room" << std::endl;
 }
 
 CityOneRoomApartment::CityOneRoomApartment(const OneRoomApartment& apartment, const std::string& city)
     : OneRoomApartment(apartment), cityName(city) {
-    std::cout << "Створено однокімнатну квартиру в місті " << cityName << " з існуючої квартири" << std::endl;
+    std::cout << "One-room apartment created in " << cityName << " from existing apartment" << std::endl;
 }
 
 CityOneRoomApartment::CityOneRoomApartment(const CityOneRoomApartment& other)
     : OneRoomApartment(other), cityName(other.cityName) {
-    std::cout << "Створено копію однокімнатної квартири в місті " << cityName << std::endl;
+    std::cout << "One-room apartment copy created in " << cityName << std::endl;
 }
 
 CityOneRoomApartment& CityOneRoomApartment::operator=(const CityOneRoomApartment& other) {
@@ -161,7 +161,7 @@ CityOneRoomApartment& CityOneRoomApartment::operator=(const CityOneRoomApartment
 }
 
 CityOneRoomApartment::~CityOneRoomApartment() {
-    std::cout << "Видалено однокімнатну квартиру в місті " << cityName << std::endl;
+    std::cout << "One-room apartment in " << cityName << " deleted" << std::endl;
 }
 
 std::string CityOneRoomApartment::getCityName() const {
@@ -173,20 +173,20 @@ void CityOneRoomApartment::setCityName(const std::string& city) {
 }
 
 void CityOneRoomApartment::printInfo() const {
-    std::cout << "Однокімнатна квартира в місті " << cityName << ":" << std::endl;
-    OneRoomApartment::printInfo(); // Виклик методу базового класу
+    std::cout << "One-room apartment in " << cityName << ":" << std::endl;
+    OneRoomApartment::printInfo(); // Call base class method
 }
 
 std::string CityOneRoomApartment::getPopularCity() {
-    // Статичний метод повертає найпопулярніше місто для однокімнатних квартир
-    static const std::vector<std::string> popularCities = {"Київ", "Львів", "Одеса", "Харків", "Дніпро"};
-    return popularCities[0]; // Повертаємо перше місто як найпопулярніше
+    // Static method returns the most popular city for one-room apartments
+    static const std::vector<std::string> popularCities = {"Kyiv", "Lviv", "Odesa", "Kharkiv", "Dnipro"};
+    return popularCities[0]; // Return the first city as the most popular
 }
 
-// Реалізація функцій введення даних
+// Input functions implementation
 void inputFromKeyboard(Room& room) {
     double area;
-    std::cout << "Введіть площу кімнати (м²): ";
+    std::cout << "Enter room area (m²): ";
     std::cin >> area;
     room.setArea(area);
 }
@@ -196,11 +196,11 @@ void inputFromKeyboard(OneRoomApartment& apartment) {
     inputFromKeyboard(room);
     
     double kitchenArea;
-    std::cout << "Введіть площу кухні (м²): ";
+    std::cout << "Enter kitchen area (m²): ";
     std::cin >> kitchenArea;
     
     int floor;
-    std::cout << "Введіть поверх: ";
+    std::cout << "Enter floor: ";
     std::cin >> floor;
     
     apartment.setRoom(room);
@@ -213,8 +213,8 @@ void inputFromKeyboard(CityOneRoomApartment& cityApartment) {
     inputFromKeyboard(apartment);
     
     std::string city;
-    std::cout << "Введіть назву міста: ";
-    std::cin.ignore(); // Очищення буфера
+    std::cout << "Enter city name: ";
+    std::cin.ignore(); // Clear buffer
     std::getline(std::cin, city);
     
     cityApartment = CityOneRoomApartment(apartment, city);
@@ -229,7 +229,7 @@ void inputFromFile(Room& room, const std::string& filename) {
         room.setArea(area);
         file.close();
     } else {
-        std::cerr << "Помилка відкриття файлу " << filename << std::endl;
+        std::cerr << "Error opening file " << filename << std::endl;
     }
 }
 
@@ -249,7 +249,7 @@ void inputFromFile(OneRoomApartment& apartment, const std::string& filename) {
         
         file.close();
     } else {
-        std::cerr << "Помилка відкриття файлу " << filename << std::endl;
+        std::cerr << "Error opening file " << filename << std::endl;
     }
 }
 
@@ -262,7 +262,7 @@ void inputFromFile(CityOneRoomApartment& cityApartment, const std::string& filen
         std::string city;
         
         file >> roomArea >> kitchenArea >> floor;
-        file.ignore(); // Пропуск символу нового рядка
+        file.ignore(); // Skip newline character
         std::getline(file, city);
         
         Room room(roomArea);
@@ -271,7 +271,7 @@ void inputFromFile(CityOneRoomApartment& cityApartment, const std::string& filen
         
         file.close();
     } else {
-        std::cerr << "Помилка відкриття файлу " << filename << std::endl;
+        std::cerr << "Error opening file " << filename << std::endl;
     }
 }
 
@@ -306,7 +306,7 @@ void generateRandom(CityOneRoomApartment& cityApartment, double minRoomArea, dou
     
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::vector<std::string> cities = {"Київ", "Львів", "Одеса", "Харків", "Дніпро", "Запоріжжя", "Вінниця"};
+    std::vector<std::string> cities = {"Kyiv", "Lviv", "Odesa", "Kharkiv", "Dnipro", "Zaporizhzhia", "Vinnytsia"};
     std::uniform_int_distribution<> distCity(0, cities.size() - 1);
     
     cityApartment = CityOneRoomApartment(apartment, cities[distCity(gen)]);

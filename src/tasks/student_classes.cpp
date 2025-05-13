@@ -1,89 +1,89 @@
 #include "student_classes.h"
 #include <iomanip>
 
-// Реалізація методів базового класу Student
+// Student base class methods implementation
 // =========================================
 
-// Конструктор за замовчуванням
+// Default constructor
 Student::Student() : lastName(""), firstName(""), middleName(""), course(1), idNumber("") {
-    std::cout << "Створено студента (конструктор за замовчуванням)" << std::endl;
+    std::cout << "Student created (default constructor)" << std::endl;
 }
 
-// Конструктор з параметрами
+// Constructor with parameters
 Student::Student(const std::string& lastName, const std::string& firstName, 
         const std::string& middleName, int course, const std::string& idNumber)
     : lastName(lastName), firstName(firstName), middleName(middleName), 
       course(course), idNumber(idNumber) {
-    std::cout << "Створено студента: " << lastName << " " << firstName << std::endl;
+    std::cout << "Student created: " << lastName << " " << firstName << std::endl;
 }
 
-// Конструктор копіювання
+// Copy constructor
 Student::Student(const Student& other)
     : lastName(other.lastName), firstName(other.firstName), middleName(other.middleName),
       course(other.course), idNumber(other.idNumber) {
-    std::cout << "Створено копію студента: " << lastName << " " << firstName << std::endl;
+    std::cout << "Created copy of student: " << lastName << " " << firstName << std::endl;
 }
 
-// Деструктор
+// Destructor
 Student::~Student() {
-    std::cout << "Видалено студента: " << lastName << " " << firstName << std::endl;
+    std::cout << "Student deleted: " << lastName << " " << firstName << std::endl;
 }
 
-// Метод друку інформації про студента
+// Method for printing student information
 void Student::print() const {
     std::cout << std::endl;
-    std::cout << "Студент:" << std::endl;
-    std::cout << "ПІБ: " << lastName << " " << firstName << " " << middleName << std::endl;
-    std::cout << "Курс: " << course << std::endl;
-    std::cout << "Ідентифікаційний номер: " << idNumber << std::endl;
+    std::cout << "Student:" << std::endl;
+    std::cout << "Full name: " << lastName << " " << firstName << " " << middleName << std::endl;
+    std::cout << "Course: " << course << std::endl;
+    std::cout << "ID number: " << idNumber << std::endl;
 }
 
-// Метод введення даних з клавіатури
+// Method for keyboard input
 void Student::inputFromKeyboard() {
-    std::cout << "Введіть прізвище студента: ";
+    std::cout << "Enter student's last name: ";
     std::cin >> lastName;
     
-    std::cout << "Введіть ім'я студента: ";
+    std::cout << "Enter student's first name: ";
     std::cin >> firstName;
     
-    std::cout << "Введіть по-батькові студента: ";
+    std::cout << "Enter student's middle name: ";
     std::cin >> middleName;
     
-    std::cout << "Введіть курс (1-6): ";
+    std::cout << "Enter course (1-6): ";
     std::cin >> course;
     
-    std::cout << "Введіть ідентифікаційний номер: ";
+    std::cout << "Enter ID number: ";
     std::cin >> idNumber;
 }
 
-// Метод введення даних з файлу
+// Method for file input
 void Student::inputFromFile(std::ifstream& fin) {
     if (fin.is_open()) {
         fin >> lastName >> firstName >> middleName >> course >> idNumber;
     }
 }
 
-// Генерування випадкових даних
+// Generate random data
 void Student::generateRandom() {
-    // Масиви прикладів для генерації випадкових даних
-    static const std::string lastNames[] = {"Іваненко", "Петренко", "Сидоренко", "Коваленко", 
-                                           "Шевченко", "Бондаренко", "Ткаченко", "Мельник"};
-    static const std::string firstNames[] = {"Іван", "Петро", "Олексій", "Андрій", 
-                                           "Марія", "Олена", "Ірина", "Тетяна"};
-    static const std::string middleNames[] = {"Іванович", "Петрович", "Олексійович", "Андрійович", 
-                                             "Іванівна", "Петрівна", "Олексіївна", "Андріївна"};
+    // Arrays of examples for random data generation
+    static const std::string lastNames[] = {"Smith", "Johnson", "Williams", "Jones", 
+                                           "Brown", "Davis", "Miller", "Wilson"};
+    static const std::string firstNames[] = {"John", "James", "Robert", "Michael", 
+                                           "Mary", "Patricia", "Jennifer", "Linda"};
+    static const std::string middleNames[] = {"Alexander", "Thomas", "Edward", "William", 
+                                             "Marie", "Anne", "Elizabeth", "Jane"};
     
-    // Створюємо генератор випадкових чисел
+    // Create random number generator
     std::random_device rd;
     std::mt19937 gen(rd());
     
-    // Розподіли для різних параметрів
+    // Distributions for different parameters
     std::uniform_int_distribution<> lastNameDist(0, sizeof(lastNames)/sizeof(lastNames[0])-1);
     std::uniform_int_distribution<> firstNameDist(0, sizeof(firstNames)/sizeof(firstNames[0])-1);
     std::uniform_int_distribution<> middleNameDist(0, sizeof(middleNames)/sizeof(middleNames[0])-1);
-    std::uniform_int_distribution<> courseDist(1, 6);  // Від 1 до 6 курсу
+    std::uniform_int_distribution<> courseDist(1, 6);  // From 1 to 6 course
     
-    // Генеруємо випадкові значення
+    // Generate random values
     lastName = lastNames[lastNameDist(gen)];
     firstName = firstNames[firstNameDist(gen)];
     middleName = middleNames[middleNameDist(gen)];
@@ -91,7 +91,7 @@ void Student::generateRandom() {
     idNumber = generateRandomId();
 }
 
-// Статичний метод для генерації випадкового ідентифікаційного номера
+// Static method for generating random ID number
 std::string Student::generateRandomId() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -100,78 +100,78 @@ std::string Student::generateRandomId() {
     return "ID" + std::to_string(dist(gen));
 }
 
-// Реалізація методів похідного класу GraduateStudent
-// =================================================
+// Implementation of GraduateStudent derived class methods
+// ======================================================
 
-// Конструктор за замовчуванням
+// Default constructor
 GraduateStudent::GraduateStudent() : Student(), thesisTitle("") {
-    std::cout << "Створено студента-дипломника (конструктор за замовчуванням)" << std::endl;
+    std::cout << "Graduate student created (default constructor)" << std::endl;
 }
 
-// Конструктор з параметрами
+// Constructor with parameters
 GraduateStudent::GraduateStudent(const std::string& lastName, const std::string& firstName, 
                            const std::string& middleName, int course, 
                            const std::string& idNumber, const std::string& thesisTitle)
     : Student(lastName, firstName, middleName, course, idNumber), thesisTitle(thesisTitle) {
-    std::cout << "Створено студента-дипломника: " << lastName << " " << firstName << std::endl;
+    std::cout << "Graduate student created: " << lastName << " " << firstName << std::endl;
 }
 
-// Конструктор на основі об'єкта класу Student
+// Constructor based on Student object
 GraduateStudent::GraduateStudent(const Student& student, const std::string& thesisTitle)
     : Student(student), thesisTitle(thesisTitle) {
-    std::cout << "Створено студента-дипломника на основі існуючого студента: " 
+    std::cout << "Graduate student created based on existing student: " 
               << lastName << " " << firstName << std::endl;
 }
 
-// Конструктор копіювання
+// Copy constructor
 GraduateStudent::GraduateStudent(const GraduateStudent& other)
     : Student(other), thesisTitle(other.thesisTitle) {
-    std::cout << "Створено копію студента-дипломника: " << lastName << " " << firstName << std::endl;
+    std::cout << "Created copy of graduate student: " << lastName << " " << firstName << std::endl;
 }
 
-// Деструктор
+// Destructor
 GraduateStudent::~GraduateStudent() {
-    std::cout << "Видалено студента-дипломника: " << lastName << " " << firstName << std::endl;
+    std::cout << "Graduate student deleted: " << lastName << " " << firstName << std::endl;
 }
 
-// Перевизначений метод друку
+// Overridden print method
 void GraduateStudent::print() const {
-    Student::print();  // Викликаємо метод базового класу
-    std::cout << "Тема диплома: " << thesisTitle << std::endl;
+    Student::print();  // Call base class method
+    std::cout << "Thesis topic: " << thesisTitle << std::endl;
 }
 
-// Перевизначений метод введення з клавіатури
+// Overridden keyboard input method
 void GraduateStudent::inputFromKeyboard() {
-    Student::inputFromKeyboard();  // Викликаємо метод базового класу
+    Student::inputFromKeyboard();  // Call base class method
     
-    std::cout << "Введіть тему диплома: ";
-    std::cin.ignore();  // Ігноруємо попередній символ нового рядка в буфері
+    std::cout << "Enter thesis topic: ";
+    std::cin.ignore();  // Ignore previous newline character in buffer
     std::getline(std::cin, thesisTitle);
 }
 
-// Перевизначений метод введення з файлу
+// Overridden file input method
 void GraduateStudent::inputFromFile(std::ifstream& fin) {
-    Student::inputFromFile(fin);  // Викликаємо метод базового класу
+    Student::inputFromFile(fin);  // Call base class method
     
-    // Читаємо тему диплома як рядок до кінця рядка
-    fin.ignore(); // Ігноруємо попередній символ нового рядка
+    // Read thesis topic as a string until end of line
+    fin.ignore(); // Ignore previous newline character
     std::getline(fin, thesisTitle);
 }
 
-// Перевизначений метод генерації випадкових даних
+// Overridden random data generation method
 void GraduateStudent::generateRandom() {
-    Student::generateRandom();  // Викликаємо метод базового класу
+    Student::generateRandom();  // Call base class method
     
-    // Масив прикладів тем дипломів
+    // Array of thesis topic examples
     static const std::string thesisTitles[] = {
-        "Розробка системи розподіленого обчислення на базі контейнерів Docker",
-        "Аналіз та оптимізація алгоритмів машинного навчання для обробки природної мови",
-        "Дослідження методів захисту інформації в IoT пристроях",
-        "Проектування високонавантажених веб-систем з використанням мікросервісної архітектури",
-        "Розробка системи комп'ютерного зору для аналізу медичних зображень"
+        "Development of distributed computing system based on Docker containers",
+        "Analysis and optimization of machine learning algorithms for natural language processing",
+        "Research on information protection methods in IoT devices",
+        "Design of high-load web systems using microservice architecture",
+        "Development of computer vision system for medical image analysis"
     };
     
-    // Генеруємо випадковий індекс для вибору теми диплома
+    // Generate random index for thesis topic selection
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dist(0, sizeof(thesisTitles)/sizeof(thesisTitles[0])-1);
@@ -179,18 +179,18 @@ void GraduateStudent::generateRandom() {
     thesisTitle = thesisTitles[dist(gen)];
 }
 
-// Метод для перепризначення теми диплома
+// Method for changing thesis topic
 void GraduateStudent::changeThesisTitle(const std::string& newTitle) {
-    std::cout << "Зміна теми диплома." << std::endl;
-    std::cout << "Стара тема: " << thesisTitle << std::endl;
+    std::cout << "Changing thesis topic." << std::endl;
+    std::cout << "Old topic: " << thesisTitle << std::endl;
     thesisTitle = newTitle;
-    std::cout << "Нова тема: " << thesisTitle << std::endl;
+    std::cout << "New topic: " << thesisTitle << std::endl;
 }
 
-// Метод для перепризначення ідентифікаційного номера
+// Method for changing ID number
 void GraduateStudent::changeIdNumber(const std::string& newIdNumber) {
-    std::cout << "Зміна ідентифікаційного номера." << std::endl;
-    std::cout << "Старий номер: " << idNumber << std::endl;
+    std::cout << "Changing ID number." << std::endl;
+    std::cout << "Old number: " << idNumber << std::endl;
     idNumber = newIdNumber;
-    std::cout << "Новий номер: " << idNumber << std::endl;
+    std::cout << "New number: " << idNumber << std::endl;
 }
